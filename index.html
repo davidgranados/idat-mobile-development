@@ -1,118 +1,90 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplicación Estática HTML/CSS</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicios de Condicionales</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    button:disabled {
+      background-color: #6c757d;
+      cursor: not-allowed;
+    }
+
+    #answers {
+      list-style: none;
+      padding: 0;
+    }
+
+    .question {
+      background-color: #e3f2fd;
+      color: #1565c0;
+      padding: 10px;
+      margin: 10px 0 5px 0;
+      border-radius: 5px;
+      font-weight: bold;
+      border-left: 4px solid #2196f3;
+    }
+
+    .answer {
+      background-color: #f1f8e9;
+      color: #2e7d32;
+      padding: 10px;
+      margin: 0 0 15px 20px;
+      border-radius: 5px;
+      border-left: 4px solid #4caf50;
+    }
+
+    .completed {
+      text-align: center;
+      color: #28a745;
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <!-- 1. Título Hola Mundo -->
-    <section class="hello-section">
-        <h1 class="hello-title">Hola Mundo</h1>
-        <p class="hello-paragraph">Este es un párrafo debajo del título principal.</p>
-    </section>
-
-    <!-- 2. Imagen con hover -->
-    <section class="image-section">
-        <h2>Imagen con Efecto Hover</h2>
-        <img src="data:image/jpeg;base64,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" alt="Imagen de ejemplo" class="hover-image">
-    </section>
-
-    <!-- 3. Lista de compras -->
-    <section class="shopping-section">
-        <h2>Lista de Compras</h2>
-        <ul class="shopping-list">
-            <li>Manzanas</li>
-            <li>Pan integral</li>
-            <li>Leche</li>
-            <li>Huevos</li>
-            <li>Queso</li>
-        </ul>
-    </section>
-
-    <!-- 4. Enlace estilizado -->
-    <section class="link-section">
-        <h2>Enlace Estilizado</h2>
-        <a href="https://www.google.com" target="_blank" class="styled-link">Ir a Google</a>
-    </section>
-
-    <!-- 5. Caja con texto -->
-    <section class="text-box-section">
-        <h2>Caja con Texto</h2>
-        <div class="text-box">
-            <p>Este es un párrafo dentro de una caja estilizada con fondo gris claro, padding de 20px y bordes redondeados.</p>
-        </div>
-    </section>
-
-    <!-- 6. Encabezados de colores -->
-    <section class="headers-section">
-        <h1 class="header-h1">Encabezado H1 - Rojo</h1>
-        <h2 class="header-h2">Encabezado H2 - Verde</h2>
-        <h3 class="header-h3">Encabezado H3 - Azul</h3>
-        <h4 class="header-h4">Encabezado H4 - Naranja</h4>
-    </section>
-
-    <!-- 7. Formulario básico -->
-    <section class="form-section">
-        <h2>Formulario Básico</h2>
-        <form class="basic-form">
-            <div class="form-group">
-                <label for="name">Nombre:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <button type="submit" class="submit-btn">Enviar</button>
-        </form>
-    </section>
-
-    <!-- 8. Página con fondo centrado -->
-    <section class="centered-section">
-        <h2 class="centered-title">Título Centrado</h2>
-    </section>
-
-    <!-- 9. Contenedor con tarjetas -->
-    <section class="cards-section">
-        <h2>Contenedor con Tarjetas</h2>
-        <div class="cards-container">
-            <div class="card">
-                <h3>Tarjeta 1</h3>
-                <p>Esta es la descripción de la primera tarjeta con información relevante.</p>
-            </div>
-            <div class="card">
-                <h3>Tarjeta 2</h3>
-                <p>Esta es la descripción de la segunda tarjeta con contenido interesante.</p>
-            </div>
-            <div class="card">
-                <h3>Tarjeta 3</h3>
-                <p>Esta es la descripción de la tercera tarjeta con datos importantes.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 10. Contenedor con figuras geométricas -->
-    <section class="geometric-section">
-        <h2>Figuras Geométricas</h2>
-        <div class="geometric-container">
-            <div class="geometric-card">
-                <div class="circle"></div>
-                <h3>Círculo</h3>
-                <p>Una figura geométrica perfectamente redonda.</p>
-            </div>
-            <div class="geometric-card">
-                <div class="square"></div>
-                <h3>Cuadrado</h3>
-                <p>Una figura con cuatro lados iguales.</p>
-            </div>
-            <div class="geometric-card">
-                <div class="triangle"></div>
-                <h3>Triángulo</h3>
-                <p>Una figura con tres lados y tres ángulos.</p>
-            </div>
-        </div>
-    </section>
+  <div class="container">
+    <h1>Ejercicios de Condicionales</h1>
+    <button id="nextBtn">Comenzar</button>
+    <ul id="answers"></ul>
+  </div>
+  <script src="condicionales.js"></script>
 </body>
 </html>
