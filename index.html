@@ -1,90 +1,442 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ejercicios de Condicionales</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f5f5f5;
-    }
-
-    h1 {
-      color: #333;
-      text-align: center;
-    }
-
-    .container {
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      display: block;
-      margin: 20px auto;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    button:disabled {
-      background-color: #6c757d;
-      cursor: not-allowed;
-    }
-
-    #answers {
-      list-style: none;
-      padding: 0;
-    }
-
-    .question {
-      background-color: #e3f2fd;
-      color: #1565c0;
-      padding: 10px;
-      margin: 10px 0 5px 0;
-      border-radius: 5px;
-      font-weight: bold;
-      border-left: 4px solid #2196f3;
-    }
-
-    .answer {
-      background-color: #f1f8e9;
-      color: #2e7d32;
-      padding: 10px;
-      margin: 0 0 15px 20px;
-      border-radius: 5px;
-      border-left: 4px solid #4caf50;
-    }
-
-    .completed {
-      text-align: center;
-      color: #28a745;
-      font-weight: bold;
-      font-size: 18px;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0">
+    <title>Métodos de Arrays en JavaScript: map, filter y reduce</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Ejercicios de Condicionales</h1>
-    <button id="nextBtn">Comenzar</button>
-    <ul id="answers"></ul>
-  </div>
-  <script src="condicionales.js"></script>
+    <header>
+        <div class="container">
+            <h1>🚀 Métodos de Arrays en JavaScript</h1>
+            <p>Aprende map, filter y reduce de forma interactiva</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Introducción -->
+        <section class="intro">
+            <h2>¿Qué son los métodos de arrays?</h2>
+            <p>Los métodos <code>map</code>, <code>filter</code> y <code>reduce</code> son herramientas poderosas para trabajar con arrays de manera funcional. Te permiten transformar, filtrar y procesar datos de forma más elegante que los bucles tradicionales.</p>
+        </section>
+
+        <!-- Instrucciones generales siempre visibles -->
+        <section class="general-instructions">
+            <div class="instructions-banner">
+                <h3>📖 Cómo usar este sitio</h3>
+                <p>Cada sección muestra un método de array y su equivalente con bucles <code>for</code>. <strong>Haz clic en "Ejecutar"</strong> para ver los resultados en tiempo real y compara ambos enfoques.</p>
+            </div>
+        </section>
+
+        <!-- Datos de ejemplo -->
+        <section class="data-section">
+            <h2>📊 Datos de Ejemplo</h2>
+            <p>Usaremos este array de productos para nuestros ejemplos:</p>
+            <div class="code-block">
+                <pre><code id="sample-data">const productos = [
+    { nombre: "Laptop", precio: 1200, categoria: "electrónicos", descuento: 0.1 },
+    { nombre: "Teléfono", precio: 800, categoria: "electrónicos", descuento: 0.15 },
+    { nombre: "Libro", precio: 25, categoria: "educación", descuento: 0.05 },
+    { nombre: "Auriculares", precio: 150, categoria: "electrónicos", descuento: 0.2 },
+    { nombre: "Mesa", precio: 300, categoria: "muebles", descuento: 0.1 }
+];</code></pre>
+            </div>
+        </section>
+
+        <!-- MAP -->
+        <section class="method-section">
+            <h2>🗺️ Método MAP
+                <div class="tooltip-container">
+                    <span class="tooltip-trigger">💡</span>
+                    <div class="tooltip-content">
+                        <p><strong>Tip:</strong> MAP siempre devuelve un array de la misma longitud que el original. Es perfecto para transformaciones uno a uno.</p>
+                    </div>
+                </div>
+            </h2>
+            <div class="explanation">
+                <p><strong>¿Qué hace?</strong> Transforma cada elemento del array y devuelve un nuevo array con los elementos transformados.</p>
+                <p><strong>Cuándo usarlo:</strong> Cuando necesites aplicar la misma operación a todos los elementos de un array.</p>
+            </div>
+
+            <div class="section-instructions">
+                <p><strong>📋 Instrucciones:</strong> Compara cómo MAP simplifica la transformación de arrays vs el bucle FOR equivalente. Haz clic en los botones para ejecutar cada ejemplo.</p>
+            </div>
+
+            <div class="example-container">
+                <div class="example">
+                    <h3>Usando MAP</h3>
+                    <div class="code-block">
+                        <pre><code>// Obtener solo los nombres de los productos
+const nombres = productos.map(producto => producto.nombre);
+
+// Calcular precios con descuento
+const preciosConDescuento = productos.map(producto => {
+    return producto.precio * (1 - producto.descuento);
+});</code></pre>
+                    </div>
+                    <button class="run-btn" onclick="ejecutarMap()">Ejecutar MAP</button>
+                </div>
+
+                <div class="example">
+                    <h3>Equivalente con FOR</h3>
+                    <div class="code-block">
+                        <pre><code>// Función MAP equivalente con FOR
+function mapConFor(array, callback) {
+    const resultado = [];
+    for (let i = 0; i < array.length; i++) {
+        resultado.push(callback(array[i], i, array));
+    }
+    return resultado;
+}
+
+// Usar la función igual que MAP
+const nombres = mapConFor(productos, producto => producto.nombre);
+
+const preciosConDescuento = mapConFor(productos, producto => {
+    return producto.precio * (1 - producto.descuento);
+});</code></pre>
+                    </div>
+                    <button class="run-btn" onclick="ejecutarMapFor()">Ejecutar FOR</button>
+                </div>
+            </div>
+
+            <div class="result" id="map-result"></div>
+        </section>
+
+        <!-- FILTER -->
+        <section class="method-section">
+            <h2>🔍 Método FILTER
+                <div class="tooltip-container">
+                    <span class="tooltip-trigger">💡</span>
+                    <div class="tooltip-content">
+                        <p><strong>Tip:</strong> FILTER puede devolver un array más pequeño, del mismo tamaño o incluso vacío, dependiendo de cuántos elementos cumplan la condición.</p>
+                    </div>
+                </div>
+            </h2>
+            <div class="explanation">
+                <p><strong>¿Qué hace?</strong> Filtra elementos del array que cumplan una condición específica y devuelve un nuevo array con esos elementos.</p>
+                <p><strong>Cuándo usarlo:</strong> Cuando necesites seleccionar solo algunos elementos que cumplan ciertos criterios.</p>
+            </div>
+
+            <div class="section-instructions">
+                <p><strong>📋 Instrucciones:</strong> Observa cómo FILTER simplifica la selección de elementos vs usar IF dentro de un bucle FOR. Ejecuta ambos ejemplos para comparar.</p>
+            </div>
+
+            <div class="example-container">
+                <div class="example">
+                    <h3>Usando FILTER</h3>
+                    <div class="code-block">
+                        <pre><code>// Filtrar productos electrónicos
+const electronicos = productos.filter(producto =>
+    producto.categoria === "electrónicos"
+);
+
+// Filtrar productos caros (precio > 200)
+const productosCaros = productos.filter(producto =>
+    producto.precio > 200
+);</code></pre>
+                    </div>
+                    <button class="run-btn" onclick="ejecutarFilter()">Ejecutar FILTER</button>
+                </div>
+
+                <div class="example">
+                    <h3>Equivalente con FOR</h3>
+                    <div class="code-block">
+                        <pre><code>// Función FILTER equivalente con FOR
+function filterConFor(array, callback) {
+    const resultado = [];
+    for (let i = 0; i < array.length; i++) {
+        if (callback(array[i], i, array)) {
+            resultado.push(array[i]);
+        }
+    }
+    return resultado;
+}
+
+// Usar la función igual que FILTER
+const electronicos = filterConFor(productos,
+    producto => producto.categoria === "electrónicos"
+);
+
+const productosCaros = filterConFor(productos,
+    producto => producto.precio > 200
+);</code></pre>
+                    </div>
+                    <button class="run-btn" onclick="ejecutarFilterFor()">Ejecutar FOR</button>
+                </div>
+            </div>
+
+            <div class="result" id="filter-result"></div>
+        </section>
+
+        <!-- REDUCE -->
+        <section class="method-section">
+            <h2>🔄 Método REDUCE
+                <div class="tooltip-container">
+                    <span class="tooltip-trigger">💡</span>
+                    <div class="tooltip-content">
+                        <p><strong>Tip:</strong> REDUCE es el más versátil: puede devolver un número, string, objeto, o incluso otro array. El valor inicial es importante!</p>
+                    </div>
+                </div>
+            </h2>
+            <div class="explanation">
+                <p><strong>¿Qué hace?</strong> Procesa todos los elementos del array para producir un único valor acumulado.</p>
+                <p><strong>Cuándo usarlo:</strong> Cuando necesites calcular un valor total, encontrar el máximo/mínimo, o agrupar datos.</p>
+            </div>
+
+            <div class="section-instructions">
+                <p><strong>📋 Instrucciones:</strong> REDUCE es el más complejo pero potente. Compara cómo acumula valores vs múltiples variables en bucles FOR. Presta atención al acumulador.</p>
+            </div>
+
+            <div class="example-container">
+                <div class="example">
+                    <h3>Usando REDUCE</h3>
+                    <div class="code-block">
+                        <pre><code>// Ejemplo 1: Sumar todos los precios
+const precioTotal = productos.reduce((suma, producto) => {
+    return suma + producto.precio;
+}, 0);
+console.log('Precio total:', precioTotal); // 2475
+
+// Ejemplo 2: Encontrar el producto más caro
+const productoMasCaro = productos.reduce((masCaro, producto) => {
+    return producto.precio > masCaro.precio ? producto : masCaro;
+});
+console.log('Más caro:', productoMasCaro.nombre); // Laptop
+
+// Ejemplo 3: Agrupar productos por categoría
+const porCategoria = productos.reduce((grupos, producto) => {
+    if (!grupos[producto.categoria]) {
+        grupos[producto.categoria] = [];
+    }
+    grupos[producto.categoria].push(producto);
+    return grupos;
+}, {});</code></pre>
+                    </div>
+                    <button class="run-btn" onclick="ejecutarReduce()">Ejecutar REDUCE</button>
+                </div>
+
+                <div class="example">
+                    <h3>Equivalente con FOR</h3>
+                    <div class="code-block">
+                        <pre><code>// Función REDUCE equivalente con FOR
+function reduceConFor(array, callback, valorInicial) {
+    let acumulador = valorInicial;
+    let inicio = 0;
+
+    if (valorInicial === undefined) {
+        acumulador = array[0];
+        inicio = 1;
+    }
+
+    for (let i = inicio; i < array.length; i++) {
+        acumulador = callback(acumulador, array[i], i, array);
+    }
+    return acumulador;
+}
+
+// Ejemplo 1: Sumar todos los precios
+const precioTotal = reduceConFor(productos,
+    (suma, producto) => suma + producto.precio, 0
+);
+
+// Ejemplo 2: Encontrar el producto más caro
+const productoMasCaro = reduceConFor(productos,
+    (masCaro, producto) => producto.precio > masCaro.precio ? producto : masCaro
+);
+
+// Ejemplo 3: Agrupar productos por categoría
+const porCategoria = reduceConFor(productos, (grupos, producto) => {
+    if (!grupos[producto.categoria]) {
+        grupos[producto.categoria] = [];
+    }
+    grupos[producto.categoria].push(producto);
+    return grupos;
+}, {});</code></pre>
+                    </div>
+                    <button class="run-btn" onclick="ejecutarReduceFor()">Ejecutar FOR</button>
+                </div>
+            </div>
+
+            <div class="result" id="reduce-result"></div>
+        </section>
+
+        <!-- Playground interactivo -->
+        <section class="playground">
+            <h2>🎮 Área de Práctica
+                <div class="tooltip-container">
+                    <span class="tooltip-trigger">💡</span>
+                    <div class="tooltip-content">
+                        <p><strong>Tip:</strong> Usa <kbd>Ctrl/Cmd + Enter</kbd> para ejecutar rápidamente. El array 'productos' está disponible aquí.</p>
+                    </div>
+                </div>
+            </h2>
+            <div class="section-instructions">
+                <p><strong>📋 Instrucciones:</strong> Experimenta con los métodos. Intenta encadenar varios métodos como <code>productos.filter().map().reduce()</code></p>
+            </div>
+            <p>Escribe tu propio código y experimenta:</p>
+            <textarea id="playground-code" placeholder="// Escribe tu código aquí
+// Ejemplo: productos.map(p => p.nombre)
+"></textarea>
+            <button class="run-btn" onclick="ejecutarPlayground()">Ejecutar Código</button>
+            <div class="result" id="playground-result"></div>
+        </section>
+
+        <!-- Comparación final -->
+        <section class="comparison">
+            <h2>📊 Comparación: Métodos vs. Bucles FOR</h2>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h3>Métodos de Array</h3>
+                    <ul>
+                        <li>✅ Más legibles y expresivos</li>
+                        <li>✅ Menos propensos a errores</li>
+                        <li>✅ Programación funcional</li>
+                        <li>✅ Inmutables (no modifican el array original)</li>
+                        <li>✅ Código más conciso</li>
+                    </ul>
+                </div>
+                <div class="comparison-item">
+                    <h3>Bucles FOR</h3>
+                    <ul>
+                        <li>✅ Mayor control sobre la iteración</li>
+                        <li>✅ Pueden ser más eficientes en algunos casos</li>
+                        <li>✅ Permiten breaks y continues</li>
+                        <li>❌ Más código repetitivo</li>
+                        <li>❌ Mayor riesgo de errores de índice</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de ejercicios interactivos -->
+        <section class="exercises">
+            <h2>🎯 Ejercicios Prácticos</h2>
+            <div class="section-instructions">
+                <p><strong>📋 Instrucciones:</strong> Resuelve los ejercicios escribiendo código que use los métodos de arrays. Puedes escribir solo la función o el código completo. ¡Experimenta!</p>
+            </div>
+
+            <!-- Ejercicios MAP -->
+            <div class="exercise-group">
+                <h3>🗺️ Ejercicios con MAP</h3>
+
+                <div class="exercise">
+                    <h4>Ejercicio 1: Convertir temperaturas</h4>
+                    <p>Dado un array de temperaturas en Celsius <code>[0, 25, 30, 40]</code>, convierte cada temperatura a Fahrenheit usando la fórmula: <code>(C * 9/5) + 32</code></p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> <code>[32, 77, 86, 104]</code>
+                    </div>
+                    <textarea id="exercise-map-1" placeholder="// Escribe tu código aquí
+// Ejemplo: temperaturas.map(...)"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('map', 1)">Verificar</button>
+                    <div class="exercise-result" id="result-map-1"></div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 2: Crear etiquetas HTML</h4>
+                    <p>Dado un array de nombres <code>['Ana', 'Carlos', 'María']</code>, crea un array de etiquetas HTML <code>&lt;li&gt;</code> para cada nombre.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> <code>['&lt;li&gt;Ana&lt;/li&gt;', '&lt;li&gt;Carlos&lt;/li&gt;', '&lt;li&gt;María&lt;/li&gt;']</code>
+                    </div>
+                    <textarea id="exercise-map-2" placeholder="// Escribe tu código aquí"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('map', 2)">Verificar</button>
+                    <div class="exercise-result" id="result-map-2"></div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 3: Calcular áreas de círculos</h4>
+                    <p>Dado un array de radios <code>[1, 2, 3, 4]</code>, calcula el área de cada círculo usando la fórmula: <code>Math.PI * r * r</code></p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> Array con las áreas redondeadas a 2 decimales
+                    </div>
+                    <textarea id="exercise-map-3" placeholder="// Escribe tu código aquí"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('map', 3)">Verificar</button>
+                    <div class="exercise-result" id="result-map-3"></div>
+                </div>
+            </div>
+
+            <!-- Ejercicios FILTER -->
+            <div class="exercise-group">
+                <h3>🔍 Ejercicios con FILTER</h3>
+
+                <div class="exercise">
+                    <h4>Ejercicio 1: Filtrar números pares</h4>
+                    <p>Dado un array de números <code>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code>, filtra solo los números pares.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> <code>[2, 4, 6, 8, 10]</code>
+                    </div>
+                    <textarea id="exercise-filter-1" placeholder="// Escribe tu código aquí"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('filter', 1)">Verificar</button>
+                    <div class="exercise-result" id="result-filter-1"></div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 2: Filtrar palabras largas</h4>
+                    <p>Dado un array de palabras <code>['hola', 'javascript', 'es', 'genial', 'programar']</code>, filtra solo las palabras que tengan más de 5 caracteres.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> <code>['javascript', 'programar']</code>
+                    </div>
+                    <textarea id="exercise-filter-2" placeholder="// Escribe tu código aquí"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('filter', 2)">Verificar</button>
+                    <div class="exercise-result" id="result-filter-2"></div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 3: Filtrar estudiantes aprobados</h4>
+                    <p>Dado un array de estudiantes con calificaciones <code>[{nombre: 'Ana', nota: 85}, {nombre: 'Luis', nota: 62}, {nombre: 'María', nota: 91}]</code>, filtra solo los que tienen nota >= 70.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> Estudiantes con nota >= 70
+                    </div>
+                    <textarea id="exercise-filter-3" placeholder="// Escribe tu código aquí"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('filter', 3)">Verificar</button>
+                    <div class="exercise-result" id="result-filter-3"></div>
+                </div>
+            </div>
+
+            <!-- Ejercicios REDUCE -->
+            <div class="exercise-group">
+                <h3>🔄 Ejercicios con REDUCE</h3>
+
+                <div class="exercise">
+                    <h4>Ejercicio 1: Sumar todos los números</h4>
+                    <p>Dado un array de números <code>[1, 2, 3, 4, 5]</code>, calcula la suma total usando reduce.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> <code>15</code>
+                    </div>
+                    <textarea id="exercise-reduce-1" placeholder="// Escribe tu código aquí"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('reduce', 1)">Verificar</button>
+                    <div class="exercise-result" id="result-reduce-1"></div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 2: Encontrar el número mayor</h4>
+                    <p>Dado un array de números <code>[3, 7, 2, 9, 1, 5]</code>, encuentra el número mayor usando reduce.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> <code>9</code>
+                    </div>
+                    <textarea id="exercise-reduce-2" placeholder="// Escribe tu código aquí"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('reduce', 2)">Verificar</button>
+                    <div class="exercise-result" id="result-reduce-2"></div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 3: Contar ocurrencias de letras</h4>
+                    <p>Dado un array de letras <code>['a', 'b', 'a', 'c', 'b', 'a']</code>, cuenta cuántas veces aparece cada letra usando reduce.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> <code>{a: 3, b: 2, c: 1}</code>
+                    </div>
+                    <textarea id="exercise-reduce-3" placeholder="// Escribe tu código aquí"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('reduce', 3)">Verificar</button>
+                    <div class="exercise-result" id="result-reduce-3"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
