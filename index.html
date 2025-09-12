@@ -86,17 +86,32 @@ const preciosConDescuento = productos.map(producto => {
                     <h3>Equivalente con FOR</h3>
                     <div class="code-block">
                         <pre><code class="language-javascript">// Función MAP equivalente con FOR
+// Parámetros:
+//   - array: el array original que queremos transformar
+//   - callback: función que define cómo transformar cada elemento
 function mapConFor(array, callback) {
-    const resultado = [];
+    const resultado = []; // Array para almacenar los elementos transformados
+
+    // Iteramos cada elemento del array original
     for (let i = 0; i < array.length; i++) {
-        resultado.push(callback(array[i], i, array));
+        // Llamamos al callback con los mismos parámetros que map():
+        // 1. array[i] = elemento actual
+        // 2. i = índice actual
+        // 3. array = array completo (para casos especiales)
+        const elementoTransformado = callback(array[i], i, array);
+        resultado.push(elementoTransformado);
     }
-    return resultado;
+    return resultado; // Devolvemos el nuevo array transformado
 }
 
-// Usar la función igual que MAP
+// Ejemplo de uso: extraer nombres
+// callback recibe: (producto, índice, arrayCompleto)
+// callback devuelve: producto.nombre
 const nombres = mapConFor(productos, producto => producto.nombre);
 
+// Ejemplo más complejo: calcular precios con descuento
+// callback recibe: (producto, índice, arrayCompleto)
+// callback devuelve: precio calculado con descuento
 const preciosConDescuento = mapConFor(productos, producto => {
     return producto.precio * (1 - producto.descuento);
 });</code></pre>
@@ -148,21 +163,39 @@ const productosCaros = productos.filter(producto =>
                     <h3>Equivalente con FOR</h3>
                     <div class="code-block">
                         <pre><code class="language-javascript">// Función FILTER equivalente con FOR
+// Parámetros:
+//   - array: el array original que queremos filtrar
+//   - callback: función que define la condición de filtrado (debe devolver true/false)
 function filterConFor(array, callback) {
-    const resultado = [];
+    const resultado = []; // Array para almacenar solo los elementos que pasen el filtro
+
+    // Iteramos cada elemento del array original
     for (let i = 0; i < array.length; i++) {
-        if (callback(array[i], i, array)) {
-            resultado.push(array[i]);
+        // Llamamos al callback con los mismos parámetros que filter():
+        // 1. array[i] = elemento actual
+        // 2. i = índice actual
+        // 3. array = array completo (para casos especiales)
+        const cumpleCondicion = callback(array[i], i, array);
+
+        // Si el callback devuelve true, incluimos el elemento
+        if (cumpleCondicion) {
+            resultado.push(array[i]); // Agregamos el elemento ORIGINAL (no transformado)
         }
+        // Si devuelve false, simplemente lo omitimos
     }
-    return resultado;
+    return resultado; // Devolvemos el nuevo array con solo los elementos filtrados
 }
 
-// Usar la función igual que FILTER
+// Ejemplo 1: filtrar por categoría
+// callback recibe: (producto, índice, arrayCompleto)
+// callback devuelve: true si es electrónico, false si no lo es
 const electronicos = filterConFor(productos,
     producto => producto.categoria === "electrónicos"
 );
 
+// Ejemplo 2: filtrar por precio
+// callback recibe: (producto, índice, arrayCompleto)
+// callback devuelve: true si precio > 200, false si precio <= 200
 const productosCaros = filterConFor(productos,
     producto => producto.precio > 200
 );</code></pre>
@@ -225,39 +258,60 @@ const porCategoria = productos.reduce((grupos, producto) => {
                     <h3>Equivalente con FOR</h3>
                     <div class="code-block">
                         <pre><code class="language-javascript">// Función REDUCE equivalente con FOR
+// Parámetros:
+//   - array: el array original que queremos procesar
+//   - callback: función que define cómo acumular los valores
+//   - valorInicial: valor inicial del acumulador (opcional)
 function reduceConFor(array, callback, valorInicial) {
-    let acumulador = valorInicial;
-    let inicio = 0;
+    let acumulador = valorInicial; // Variable que acumula el resultado
+    let inicio = 0; // Índice donde empezar la iteración
 
+    // Si no se proporciona valor inicial, usamos el primer elemento del array
     if (valorInicial === undefined) {
-        acumulador = array[0];
-        inicio = 1;
+        acumulador = array[0]; // El primer elemento se convierte en el acumulador
+        inicio = 1; // Empezamos desde el segundo elemento
     }
 
+    // Iteramos desde 'inicio' hasta el final del array
     for (let i = inicio; i < array.length; i++) {
+        // Llamamos al callback con los parámetros de reduce():
+        // 1. acumulador = valor acumulado hasta ahora
+        // 2. array[i] = elemento actual
+        // 3. i = índice actual
+        // 4. array = array completo
         acumulador = callback(acumulador, array[i], i, array);
+        // IMPORTANTE: el resultado del callback se convierte en el nuevo acumulador
     }
-    return acumulador;
+    return acumulador; // Devolvemos el valor final acumulado
 }
 
 // Ejemplo 1: Sumar todos los precios
+// callback recibe: (sumaAcumulada, productoActual, índice, arrayCompleto)
+// callback devuelve: nueva suma (sumaAcumulada + precio del producto actual)
 const precioTotal = reduceConFor(productos,
-    (suma, producto) => suma + producto.precio, 0
+    (suma, producto) => suma + producto.precio, 0 // valor inicial: 0
 );
 
 // Ejemplo 2: Encontrar el producto más caro
+// callback recibe: (productoMásCaroHastaAhora, productoActual, índice, arrayCompleto)
+// callback devuelve: el producto con mayor precio entre los dos
 const productoMasCaro = reduceConFor(productos,
     (masCaro, producto) => producto.precio > masCaro.precio ? producto : masCaro
+    // Sin valor inicial: usa el primer producto como inicial
 );
 
 // Ejemplo 3: Agrupar productos por categoría
+// callback recibe: (objetoGrupos, productoActual, índice, arrayCompleto)
+// callback devuelve: objeto grupos actualizado con el nuevo producto
 const porCategoria = reduceConFor(productos, (grupos, producto) => {
+    // Si la categoría no existe, la creamos
     if (!grupos[producto.categoria]) {
         grupos[producto.categoria] = [];
     }
+    // Agregamos el producto a su categoría
     grupos[producto.categoria].push(producto);
-    return grupos;
-}, {});</code></pre>
+    return grupos; // CRUCIAL: devolver el acumulador modificado
+}, {}); // valor inicial: objeto vacío</code></pre>
                     </div>
                     <button class="run-btn" onclick="ejecutarReduceFor()">Ejecutar FOR</button>
                 </div>
