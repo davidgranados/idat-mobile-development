@@ -295,13 +295,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Apply better code formatting
-    const codeBlocks = document.querySelectorAll('.code-block pre code');
-    codeBlocks.forEach(block => {
-        // Ensure proper code formatting without breaking HTML
-        block.style.display = 'block';
-        block.style.whiteSpace = 'pre';
-        block.style.overflow = 'auto';
+    // Apply syntax highlighting to code blocks using Highlight.js
+    if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+    }
+
+    // Add syntax highlighting to playground textarea
+    const playgroundCode = document.getElementById('playground-code');
+    if (playgroundCode) {
+        playgroundCode.addEventListener('input', debounce(() => {
+            highlightTextarea(playgroundCode);
+        }, 300));
+    }
+
+    // Add syntax highlighting to exercise textareas
+    const exerciseTextareas = document.querySelectorAll('.exercise textarea');
+    exerciseTextareas.forEach(textarea => {
+        textarea.addEventListener('input', debounce(() => {
+            highlightTextarea(textarea);
+        }, 300));
     });
 });
 
@@ -515,4 +527,56 @@ function compareResults(result1, result2) {
 function showResult(element, message, type) {
     element.textContent = message;
     element.className = `exercise-result ${type}`;
+}
+
+// Function to re-highlight code blocks after dynamic content changes
+function refreshSyntaxHighlighting() {
+    if (typeof hljs !== 'undefined') {
+        // Remove existing highlighting
+        document.querySelectorAll('.code-block pre code').forEach(block => {
+            if (block.dataset.highlighted) {
+                delete block.dataset.highlighted;
+                hljs.highlightElement(block);
+            }
+        });
+    }
+}
+
+// Debounce function to limit how often highlighting runs
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Simple syntax highlighting for textareas (just basic styling)
+function highlightTextarea(textarea) {
+    // For textareas, we can't do full syntax highlighting like with div elements
+    // But we can add visual cues through CSS classes based on content
+    const code = textarea.value;
+
+    // Add different background tints based on content
+    if (code.includes('.map(')) {
+        textarea.classList.add('has-map');
+    } else {
+        textarea.classList.remove('has-map');
+    }
+
+    if (code.includes('.filter(')) {
+        textarea.classList.add('has-filter');
+    } else {
+        textarea.classList.remove('has-filter');
+    }
+
+    if (code.includes('.reduce(')) {
+        textarea.classList.add('has-reduce');
+    } else {
+        textarea.classList.remove('has-reduce');
+    }
 }

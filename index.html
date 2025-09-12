@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -37,7 +38,7 @@
             <h2>📊 Datos de Ejemplo</h2>
             <p>Usaremos este array de productos para nuestros ejemplos:</p>
             <div class="code-block">
-                <pre><code id="sample-data">const productos = [
+                <pre><code id="sample-data" class="language-javascript">const productos = [
     { nombre: "Laptop", precio: 1200, categoria: "electrónicos", descuento: 0.1 },
     { nombre: "Teléfono", precio: 800, categoria: "electrónicos", descuento: 0.15 },
     { nombre: "Libro", precio: 25, categoria: "educación", descuento: 0.05 },
@@ -70,7 +71,7 @@
                 <div class="example">
                     <h3>Usando MAP</h3>
                     <div class="code-block">
-                        <pre><code>// Obtener solo los nombres de los productos
+                        <pre><code class="language-javascript">// Obtener solo los nombres de los productos
 const nombres = productos.map(producto => producto.nombre);
 
 // Calcular precios con descuento
@@ -84,7 +85,7 @@ const preciosConDescuento = productos.map(producto => {
                 <div class="example">
                     <h3>Equivalente con FOR</h3>
                     <div class="code-block">
-                        <pre><code>// Función MAP equivalente con FOR
+                        <pre><code class="language-javascript">// Función MAP equivalente con FOR
 function mapConFor(array, callback) {
     const resultado = [];
     for (let i = 0; i < array.length; i++) {
@@ -130,7 +131,7 @@ const preciosConDescuento = mapConFor(productos, producto => {
                 <div class="example">
                     <h3>Usando FILTER</h3>
                     <div class="code-block">
-                        <pre><code>// Filtrar productos electrónicos
+                        <pre><code class="language-javascript">// Filtrar productos electrónicos
 const electronicos = productos.filter(producto =>
     producto.categoria === "electrónicos"
 );
@@ -146,7 +147,7 @@ const productosCaros = productos.filter(producto =>
                 <div class="example">
                     <h3>Equivalente con FOR</h3>
                     <div class="code-block">
-                        <pre><code>// Función FILTER equivalente con FOR
+                        <pre><code class="language-javascript">// Función FILTER equivalente con FOR
 function filterConFor(array, callback) {
     const resultado = [];
     for (let i = 0; i < array.length; i++) {
@@ -196,7 +197,7 @@ const productosCaros = filterConFor(productos,
                 <div class="example">
                     <h3>Usando REDUCE</h3>
                     <div class="code-block">
-                        <pre><code>// Ejemplo 1: Sumar todos los precios
+                        <pre><code class="language-javascript">// Ejemplo 1: Sumar todos los precios
 const precioTotal = productos.reduce((suma, producto) => {
     return suma + producto.precio;
 }, 0);
@@ -223,7 +224,7 @@ const porCategoria = productos.reduce((grupos, producto) => {
                 <div class="example">
                     <h3>Equivalente con FOR</h3>
                     <div class="code-block">
-                        <pre><code>// Función REDUCE equivalente con FOR
+                        <pre><code class="language-javascript">// Función REDUCE equivalente con FOR
 function reduceConFor(array, callback, valorInicial) {
     let acumulador = valorInicial;
     let inicio = 0;
@@ -437,6 +438,7 @@ const porCategoria = reduceConFor(productos, (grupos, producto) => {
         </section>
     </main>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

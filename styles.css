@@ -330,35 +330,57 @@ kbd {
     font-family: inherit;
 }
 
-/* Syntax highlighting classes */
-.code-block .keyword {
-    color: #ff79c6;
-    font-weight: 600;
+/* Override Highlight.js styles with our custom theme */
+.code-block .hljs-keyword,
+.code-block .hljs-built_in,
+.code-block .hljs-type,
+.code-block .hljs-literal {
+    color: #ff79c6 !important;
+    font-weight: 600 !important;
 }
 
-.code-block .string {
-    color: #50fa7b;
+.code-block .hljs-string,
+.code-block .hljs-regexp {
+    color: #50fa7b !important;
 }
 
-.code-block .comment {
-    color: #6272a4;
-    font-style: italic;
+.code-block .hljs-comment {
+    color: #6272a4 !important;
+    font-style: italic !important;
+    opacity: 0.8 !important;
 }
 
-.code-block .number {
-    color: #bd93f9;
+.code-block .hljs-number {
+    color: #bd93f9 !important;
+    font-weight: 500 !important;
 }
 
-.code-block .function {
-    color: #8be9fd;
+.code-block .hljs-function,
+.code-block .hljs-title {
+    color: #50fa7b !important;
+    font-weight: 600 !important;
 }
 
-.code-block .operator {
-    color: #ff79c6;
+.code-block .hljs-property,
+.code-block .hljs-attribute {
+    color: #f8f8f2 !important;
 }
 
-.code-block .variable {
-    color: #f8f8f2;
+.code-block .hljs-operator,
+.code-block .hljs-punctuation {
+    color: #ff79c6 !important;
+    font-weight: 600 !important;
+}
+
+.code-block .hljs-variable,
+.code-block .hljs-params {
+    color: #f8f8f2 !important;
+}
+
+/* Ensure our code-block background takes precedence */
+.code-block pre code.hljs {
+    background: transparent !important;
+    padding: 0 !important;
 }
 
 /* Inline code */
@@ -549,6 +571,31 @@ code {
     outline: none;
     border-color: #3182ce;
     box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+/* Textarea syntax hints */
+.exercise textarea.has-map {
+    border-left: 4px solid #50fa7b;
+}
+
+.exercise textarea.has-filter {
+    border-left: 4px solid #ff79c6;
+}
+
+.exercise textarea.has-reduce {
+    border-left: 4px solid #bd93f9;
+}
+
+#playground-code.has-map {
+    border-left: 4px solid #50fa7b;
+}
+
+#playground-code.has-filter {
+    border-left: 4px solid #ff79c6;
+}
+
+#playground-code.has-reduce {
+    border-left: 4px solid #bd93f9;
 }
 
 .exercise-btn {
