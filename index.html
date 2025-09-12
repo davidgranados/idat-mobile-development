@@ -321,6 +321,51 @@ const porCategoria = reduceConFor(productos, (grupos, producto) => {
                 <p><strong>📋 Instrucciones:</strong> Resuelve los ejercicios escribiendo código que use los métodos de arrays. Puedes escribir solo la función o el código completo. ¡Experimenta!</p>
             </div>
 
+            <!-- Ejercicio combinado principal -->
+            <div class="challenge-exercise">
+                <h3>🏆 Desafío Principal: Sistema de Calificaciones</h3>
+                <div class="challenge-description">
+                    <p><strong>Problema:</strong> Tienes un grupo de estudiantes con sus puntuaciones de exámenes. Debes:</p>
+                    <ol>
+                        <li>Calcular el promedio de cada estudiante usando <code>reduce</code></li>
+                        <li>Transformar los datos usando <code>map</code> para incluir el promedio</li>
+                        <li>Filtrar usando <code>filter</code> solo los estudiantes con promedio mayor a 15</li>
+                    </ol>
+                </div>
+
+                <div class="challenge-data">
+                    <h4>📊 Datos de entrada:</h4>
+                    <div class="code-block">
+                        <pre><code class="language-javascript">const estudiantes = [
+    {nombre : "Juan Luis Guerra", puntuacion : [15, 13, 19]},
+    {nombre : "Roberto Carlos", puntuacion : [13, 11, 10]},
+    {nombre : "Luis Miguel", puntuacion : [17, 16, 20]},
+    {nombre : "Renzo Costa", puntuacion : [10, 11, 12]}
+];</code></pre>
+                    </div>
+                </div>
+
+                <div class="expected-result">
+                    <strong>Resultado esperado:</strong> Array con estudiantes que tienen promedio > 15, incluyendo su promedio calculado
+                </div>
+
+                <textarea id="challenge-exercise" placeholder="// Escribe tu solución aquí
+// Tip: Puedes encadenar los métodos o usar variables intermedias
+// Ejemplo: estudiantes.map(...).filter(...)"></textarea>
+
+                <button class="exercise-btn" onclick="checkChallengeExercise()">Verificar Solución</button>
+                <div class="exercise-result" id="challenge-result"></div>
+
+                <div class="challenge-hint">
+                    <details>
+                        <summary>💡 Ver pista</summary>
+                        <p>1. Usa <code>map</code> para agregar el promedio: <code>estudiante.puntuacion.reduce(...) / estudiante.puntuacion.length</code></p>
+                        <p>2. Usa <code>filter</code> para filtrar por promedio: <code>estudiante.promedio > 15</code></p>
+                        <p>3. Puedes encadenar los métodos: <code>estudiantes.map(...).filter(...)</code></p>
+                    </details>
+                </div>
+            </div>
+
             <!-- Ejercicios MAP -->
             <div class="exercise-group">
                 <h3>🗺️ Ejercicios con MAP</h3>

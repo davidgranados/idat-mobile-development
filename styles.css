@@ -493,6 +493,132 @@ code {
     margin-bottom: 2rem;
 }
 
+/* Challenge exercise styling */
+.challenge-exercise {
+    background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+    color: #2c3e50;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    border: 3px solid #ff6b35;
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+}
+
+.challenge-exercise h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.challenge-description {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid #ff6b35;
+}
+
+.challenge-description ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.challenge-description li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.challenge-data {
+    margin-bottom: 1.5rem;
+}
+
+.challenge-data h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.challenge-exercise .code-block {
+    margin-bottom: 1rem;
+}
+
+.challenge-exercise .expected-result {
+    background: #e8f6f3;
+    border-left: 4px solid #00b894;
+    color: #00695c;
+    margin-bottom: 1.5rem;
+}
+
+.challenge-exercise textarea {
+    background: #2c3e50;
+    color: #e2e8f0;
+    border: 2px solid #ff6b35;
+    border-radius: 8px;
+    width: 100%;
+    height: 120px;
+    padding: 1rem;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    resize: vertical;
+}
+
+.challenge-exercise textarea::placeholder {
+    color: #a0aec0;
+}
+
+.challenge-exercise textarea:focus {
+    outline: none;
+    border-color: #ffd700;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+}
+
+.challenge-exercise .exercise-btn {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    margin-bottom: 1rem;
+}
+
+.challenge-exercise .exercise-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
+}
+
+.challenge-hint {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+    margin-top: 1rem;
+}
+
+.challenge-hint details summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #2980b9;
+    margin-bottom: 0.5rem;
+}
+
+.challenge-hint details[open] summary {
+    margin-bottom: 1rem;
+}
+
+.challenge-hint p {
+    margin: 0.5rem 0;
+    color: #2c3e50;
+    font-size: 0.9rem;
+}
+
 .exercise-group {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -793,6 +919,20 @@ footer {
         font-size: 0.85rem;
     }
 
+    .challenge-exercise {
+        padding: 1rem;
+    }
+
+    .challenge-exercise textarea {
+        height: 100px;
+        font-size: 0.85rem;
+    }
+
+    .challenge-exercise .exercise-btn {
+        width: 100%;
+        padding: 0.8rem 1.5rem;
+    }
+
     .explanation {
         padding: 0.8rem;
         margin-bottom: 1rem;
@@ -925,6 +1065,28 @@ footer {
         padding: 0.6rem 1rem;
         font-size: 0.85rem;
         width: 100%;
+    }
+
+    .challenge-exercise {
+        padding: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .challenge-exercise h3 {
+        font-size: 1.2rem;
+    }
+
+    .challenge-exercise textarea {
+        height: 90px;
+        font-size: 0.8rem;
+    }
+
+    .challenge-hint {
+        padding: 0.8rem;
+    }
+
+    .challenge-hint p {
+        font-size: 0.85rem;
     }
 
     .explanation {

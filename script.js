@@ -529,6 +529,81 @@ function showResult(element, message, type) {
     element.className = `exercise-result ${type}`;
 }
 
+// Challenge exercise checking function
+function checkChallengeExercise() {
+    const code = document.getElementById('challenge-exercise').value;
+    const resultElement = document.getElementById('challenge-result');
+
+    // Clear previous result
+    resultElement.className = 'exercise-result';
+    resultElement.textContent = '';
+
+    if (!code.trim()) {
+        showResult(resultElement, 'Por favor, escribe algo de código para verificar.', 'error');
+        return;
+    }
+
+    try {
+        // Test data
+        const estudiantes = [
+            {nombre : "Juan Luis Guerra", puntuacion : [15, 13, 19]},
+            {nombre : "Roberto Carlos", puntuacion : [13, 11, 10]},
+            {nombre : "Luis Miguel", puntuacion : [17, 16, 20]},
+            {nombre : "Renzo Costa", puntuacion : [10, 11, 12]}
+        ];
+
+        // Calculate expected result
+        const expectedResult = estudiantes
+            .map(estudiante => ({
+                ...estudiante,
+                promedio: estudiante.puntuacion.reduce((sum, nota) => sum + nota, 0) / estudiante.puntuacion.length
+            }))
+            .filter(estudiante => estudiante.promedio > 15);
+
+        // Execute user code
+        const userResult = executeUserCode(code, 'estudiantes', estudiantes);
+
+        // Validate result structure and values
+        if (validateChallengeResult(userResult, expectedResult)) {
+            showResult(resultElement,
+                '¡Excelente! 🎉 Tu solución es correcta.\n' +
+                `Estudiantes aprobados: ${userResult.length}\n` +
+                `${userResult.map(e => `${e.nombre}: ${e.promedio.toFixed(2)}`).join('\n')}`,
+                'success'
+            );
+        } else {
+            showResult(resultElement,
+                `Incorrecto. Revisa tu solución.\n` +
+                `Esperado: ${expectedResult.length} estudiantes con promedio > 15\n` +
+                `Tu resultado: ${JSON.stringify(userResult, null, 2)}`,
+                'error'
+            );
+        }
+
+    } catch (error) {
+        showResult(resultElement, `Error en el código: ${error.message}\n\nTip: Asegúrate de usar map, filter y reduce correctamente`, 'error');
+    }
+}
+
+// Function to validate challenge exercise result
+function validateChallengeResult(userResult, expectedResult) {
+    if (!Array.isArray(userResult)) return false;
+    if (userResult.length !== expectedResult.length) return false;
+
+    // Check if all required students are present with correct averages
+    for (let i = 0; i < expectedResult.length; i++) {
+        const expected = expectedResult[i];
+        const user = userResult.find(student => student.nombre === expected.nombre);
+
+        if (!user) return false;
+        if (!user.hasOwnProperty('promedio')) return false;
+        if (Math.abs(user.promedio - expected.promedio) > 0.01) return false;
+        if (user.promedio <= 15) return false;
+    }
+
+    return true;
+}
+
 // Function to re-highlight code blocks after dynamic content changes
 function refreshSyntaxHighlighting() {
     if (typeof hljs !== 'undefined') {
