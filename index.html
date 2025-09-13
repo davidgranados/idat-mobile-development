@@ -457,6 +457,74 @@ const porCategoria = reduceConFor(productos, (grupos, producto) => {
                     <button class="exercise-btn" onclick="checkExercise('map', 3)">Verificar</button>
                     <div class="exercise-result" id="result-map-3"></div>
                 </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 4: Generar IDs únicos (🎓 Nivel Estudiante)</h4>
+                    <p>Dado un array de usuarios <code>[{nombre: 'Ana'}, {nombre: 'Luis'}, {nombre: 'María'}]</code>, agrega a cada uno un ID único empezando desde 1.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> <code>[{nombre: 'Ana', id: 1}, {nombre: 'Luis', id: 2}, {nombre: 'María', id: 3}]</code>
+                    </div>
+                    <textarea id="exercise-map-4" placeholder="// Tip: usa el segundo parámetro de map (índice)
+// usuarios.map((usuario, indice) => ...)"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('map', 4)">Verificar</button>
+                    <div class="exercise-result" id="result-map-4"></div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 5: Formatear datos de empleados (💼 Nivel 1 año de experiencia)</h4>
+                    <p>Dado un array de empleados <code>[{nombre: 'Ana García', salario: 50000, departamento: 'IT'}, {nombre: 'Luis Pérez', salario: 45000, departamento: 'HR'}]</code>, crea un array de strings con el formato: "Ana G. (IT) - $50,000"</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> Array con nombres formateados
+                    </div>
+                    <textarea id="exercise-map-5" placeholder="// Tip: usa split(), toLocaleString() para números
+// empleados.map(emp => ...)"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('map', 5)">Verificar</button>
+                    <div class="exercise-result" id="result-map-5"></div>
+
+                    <div class="challenge-hint">
+                        <details>
+                            <summary>💡 Ver pistas detalladas</summary>
+                            <p><strong>Paso 1:</strong> Extraer inicial del apellido: <code>nombre.split(' ')[1][0]</code></p>
+                            <p><strong>Paso 2:</strong> Formatear salario: <code>salario.toLocaleString('en-US')</code></p>
+                            <p><strong>Paso 3:</strong> Combinar en template string: <code>`${nombreCompleto} (${depto}) - $${salarioFormateado}`</code></p>
+                            <p><strong>Ejemplo:</strong> <code>empleados.map(emp => `${emp.nombre.split(' ')[0]} ${emp.nombre.split(' ')[1][0]}. (${emp.departamento}) - $${emp.salario.toLocaleString('en-US')}`)</code></p>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 6: Transformar estructura de datos compleja (🚀 Nivel 2 años de experiencias)</h4>
+                    <p>Dado un array de pedidos <code>[{id: 1, productos: [{nombre: 'Laptop', precio: 1000}, {nombre: 'Mouse', precio: 25}], cliente: 'Ana'}, {id: 2, productos: [{nombre: 'Teclado', precio: 50}], cliente: 'Luis'}]</code>, transforma cada pedido para incluir el total y el número de productos.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> Array con estructura: <code>{id, cliente, totalProductos: number, totalPrecio: number, resumen: string}</code>
+                    </div>
+                    <textarea id="exercise-map-6" placeholder="// Desafío: calcula totales y crea un resumen
+// pedidos.map(pedido => ({...}))"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('map', 6)">Verificar</button>
+                    <div class="exercise-result" id="result-map-6"></div>
+
+                    <div class="challenge-hint">
+                        <details>
+                            <summary>💡 Ver pistas detalladas</summary>
+                            <p><strong>Concepto clave:</strong> Usar <code>reduce</code> dentro de <code>map</code> para procesar arrays anidados</p>
+                            <p><strong>Paso 1:</strong> Calcular total productos: <code>pedido.productos.length</code></p>
+                            <p><strong>Paso 2:</strong> Calcular precio total: <code>pedido.productos.reduce((sum, prod) => sum + prod.precio, 0)</code></p>
+                            <p><strong>Paso 3:</strong> Spread operator para mantener propiedades: <code>{...pedido, nuevasPropiedades}</code></p>
+                            <p><strong>Paso 4:</strong> Template literal para resumen: <code>`${cliente}: ${count} productos - $${total.toLocaleString()}`</code></p>
+                            <p><strong>Estructura completa:</strong></p>
+                            <pre><code>pedidos.map(pedido => {
+  const totalProductos = pedido.productos.length;
+  const totalPrecio = pedido.productos.reduce((sum, prod) => sum + prod.precio, 0);
+  return {
+    ...pedido, // mantiene id, productos, cliente
+    totalProductos,
+    totalPrecio,
+    resumen: `${pedido.cliente}: ${totalProductos} productos - $${totalPrecio.toLocaleString()}`
+  };
+})</code></pre>
+                        </details>
+                    </div>
+                </div>
             </div>
 
             <!-- Ejercicios FILTER -->
@@ -495,6 +563,84 @@ const porCategoria = reduceConFor(productos, (grupos, producto) => {
                     <button class="exercise-btn" onclick="checkExercise('filter', 3)">Verificar</button>
                     <div class="exercise-result" id="result-filter-3"></div>
                 </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 4: Filtrar productos en stock (🎓 Nivel Estudiante)</h4>
+                    <p>Dado un array de productos <code>[{nombre: 'Laptop', stock: 5}, {nombre: 'Mouse', stock: 0}, {nombre: 'Teclado', stock: 3}]</code>, filtra solo los productos que tienen stock disponible (stock > 0).</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> Productos con stock > 0
+                    </div>
+                    <textarea id="exercise-filter-4" placeholder="// Filtra productos con stock disponible
+// productos.filter(producto => ...)"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('filter', 4)">Verificar</button>
+                    <div class="exercise-result" id="result-filter-4"></div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 5: Filtrar usuarios activos recientes (💼 Nivel 1 año de experiencia)</h4>
+                    <p>Dado un array de usuarios <code>[{nombre: 'Ana', activo: true, ultimoLogin: '2024-01-15'}, {nombre: 'Luis', activo: false, ultimoLogin: '2023-12-01'}, {nombre: 'María', activo: true, ultimoLogin: '2024-01-10'}]</code>, filtra usuarios que estén activos Y hayan hecho login después del 1 de enero de 2024.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> Usuarios activos con login reciente
+                    </div>
+                    <textarea id="exercise-filter-5" placeholder="// Tip: usa new Date() para comparar fechas
+// usuarios.filter(usuario => usuario.activo && ...)"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('filter', 5)">Verificar</button>
+                    <div class="exercise-result" id="result-filter-5"></div>
+
+                    <div class="challenge-hint">
+                        <details>
+                            <summary>💡 Ver pistas detalladas</summary>
+                            <p><strong>Concepto clave:</strong> Combinar condiciones booleanas con comparación de fechas</p>
+                            <p><strong>Paso 1:</strong> Verificar usuario activo: <code>usuario.activo === true</code></p>
+                            <p><strong>Paso 2:</strong> Crear fecha de corte: <code>new Date('2024-01-01')</code></p>
+                            <p><strong>Paso 3:</strong> Convertir string a Date: <code>new Date(usuario.ultimoLogin)</code></p>
+                            <p><strong>Paso 4:</strong> Comparar fechas: <code>fechaLogin > fechaCorte</code></p>
+                            <p><strong>Solución completa:</strong></p>
+                            <pre><code>usuarios.filter(usuario => {
+  const fechaCorte = new Date('2024-01-01');
+  const fechaLogin = new Date(usuario.ultimoLogin);
+  return usuario.activo && fechaLogin > fechaCorte;
+})</code></pre>
+                            <p><strong>Versión compacta:</strong> <code>usuarios.filter(u => u.activo && new Date(u.ultimoLogin) > new Date('2024-01-01'))</code></p>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 6: Filtrar con múltiples condiciones complejas (🚀 Nivel 2 años de experiencias)</h4>
+                    <p>Dado un array de transacciones bancarias <code>[{id: 1, monto: 1500, tipo: 'deposito', fecha: '2024-01-15', categoria: 'salario'}, {id: 2, monto: 50, tipo: 'retiro', fecha: '2024-01-16', categoria: 'comida'}, {id: 3, monto: 2000, tipo: 'deposito', fecha: '2024-01-10', categoria: 'freelance'}]</code>, filtra transacciones que sean: depósitos > $1000 O retiros de categoría 'comida' en enero 2024.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> Transacciones que cumplan las condiciones complejas
+                    </div>
+                    <textarea id="exercise-filter-6" placeholder="// Desafío: lógica compleja con AND/OR
+// transacciones.filter(t => (condicion1) || (condicion2))"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('filter', 6)">Verificar</button>
+                    <div class="exercise-result" id="result-filter-6"></div>
+
+                    <div class="challenge-hint">
+                        <details>
+                            <summary>💡 Ver pistas detalladas</summary>
+                            <p><strong>Concepto clave:</strong> Lógica booleana compleja con operadores AND (&&) y OR (||)</p>
+                            <p><strong>Condición 1:</strong> Depósitos grandes: <code>(t.tipo === 'deposito' && t.monto > 1000)</code></p>
+                            <p><strong>Condición 2:</strong> Retiros comida en enero: <code>(t.tipo === 'retiro' && t.categoria === 'comida' && fechaEnero)</code></p>
+                            <p><strong>Verificar fecha enero:</strong> <code>t.fecha.startsWith('2024-01')</code></p>
+                            <p><strong>Estructura de decisión:</strong></p>
+                            <pre><code>transacciones.filter(t => {
+  // Condición 1: Depósitos > $1000
+  const esDepositoGrande = t.tipo === 'deposito' && t.monto > 1000;
+
+  // Condición 2: Retiros de comida en enero 2024
+  const esRetiroComidaEnero = t.tipo === 'retiro' &&
+                              t.categoria === 'comida' &&
+                              t.fecha.startsWith('2024-01');
+
+  // Devuelve true si cumple CUALQUIERA de las dos condiciones
+  return esDepositoGrande || esRetiroComidaEnero;
+})</code></pre>
+                            <p><strong>Versión compacta:</strong> <code>transacciones.filter(t => (t.tipo === 'deposito' && t.monto > 1000) || (t.tipo === 'retiro' && t.categoria === 'comida' && t.fecha.startsWith('2024-01')))</code></p>
+                        </details>
+                    </div>
+                </div>
             </div>
 
             <!-- Ejercicios REDUCE -->
@@ -532,6 +678,220 @@ const porCategoria = reduceConFor(productos, (grupos, producto) => {
                     <textarea id="exercise-reduce-3" placeholder="// Escribe tu código aquí"></textarea>
                     <button class="exercise-btn" onclick="checkExercise('reduce', 3)">Verificar</button>
                     <div class="exercise-result" id="result-reduce-3"></div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 4: Calcular promedio de calificaciones (🎓 Nivel Estudiante)</h4>
+                    <p>Dado un array de calificaciones <code>[85, 92, 78, 96, 88]</code>, calcula el promedio usando reduce.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> <code>87.8</code> (promedio redondeado a 1 decimal)
+                    </div>
+                    <textarea id="exercise-reduce-4" placeholder="// Tip: suma todos y divide por la longitud
+// calificaciones.reduce((sum, nota) => ...) / calificaciones.length"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('reduce', 4)">Verificar</button>
+                    <div class="exercise-result" id="result-reduce-4"></div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 5: Crear índice de productos por categoría (💼 Nivel 1 año de experiencia)</h4>
+                    <p>Dado un array de productos <code>[{nombre: 'iPhone', categoria: 'electronics', precio: 999}, {nombre: 'Libro JS', categoria: 'books', precio: 30}, {nombre: 'Samsung TV', categoria: 'electronics', precio: 800}]</code>, crea un objeto donde las claves sean las categorías y los valores sean arrays con los nombres de productos de esa categoría.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> <code>{electronics: ['iPhone', 'Samsung TV'], books: ['Libro JS']}</code>
+                    </div>
+                    <textarea id="exercise-reduce-5" placeholder="// Agrupa productos por categoría
+// productos.reduce((grupos, producto) => { ... }, {})"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('reduce', 5)">Verificar</button>
+                    <div class="exercise-result" id="result-reduce-5"></div>
+
+                    <div class="challenge-hint">
+                        <details>
+                            <summary>💡 Ver pistas detalladas</summary>
+                            <p><strong>Concepto clave:</strong> Reducir a un objeto agrupando elementos por una propiedad común</p>
+                            <p><strong>Paso 1:</strong> Inicializar con objeto vacío: <code>{}</code></p>
+                            <p><strong>Paso 2:</strong> Verificar si categoría existe: <code>if (!grupos[producto.categoria])</code></p>
+                            <p><strong>Paso 3:</strong> Crear array si no existe: <code>grupos[producto.categoria] = []</code></p>
+                            <p><strong>Paso 4:</strong> Agregar producto al grupo: <code>grupos[producto.categoria].push(producto.nombre)</code></p>
+                            <p><strong>Paso 5:</strong> Retornar acumulador: <code>return grupos</code></p>
+                            <p><strong>Solución completa:</strong></p>
+                            <pre><code>productos.reduce((grupos, producto) => {
+  // Si la categoría no existe, crear array vacío
+  if (!grupos[producto.categoria]) {
+    grupos[producto.categoria] = [];
+  }
+
+  // Agregar el nombre del producto a su categoría
+  grupos[producto.categoria].push(producto.nombre);
+
+  // IMPORTANTE: siempre retornar el acumulador
+  return grupos;
+}, {})</code></pre>
+                            <p><strong>Patrón clave:</strong> Este es el patrón "group by" más común en JavaScript para agrupar elementos por una propiedad.</p>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 6: Análisis estadístico completo (🚀 Nivel 2 años de experiencias)</h4>
+                    <p>Dado un array de ventas <code>[{vendedor: 'Ana', ventas: [100, 200, 150]}, {vendedor: 'Luis', ventas: [300, 250, 400]}, {vendedor: 'María', ventas: [180, 220, 190]}]</code>, calcula un objeto con estadísticas: total general, promedio por vendedor, mejor vendedor y mes con más ventas.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> Objeto con análisis completo de ventas
+                    </div>
+                    <textarea id="exercise-reduce-6" placeholder="// Desafío: estadísticas complejas en un solo reduce
+// ventasData.reduce((stats, vendedor) => { ... }, {})"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('reduce', 6)">Verificar</button>
+                    <div class="exercise-result" id="result-reduce-6"></div>
+
+                    <div class="challenge-hint">
+                        <details>
+                            <summary>💡 Ver pistas detalladas</summary>
+                            <p><strong>Concepto clave:</strong> Reduce complex que calcula múltiples estadísticas en una sola pasada</p>
+                            <p><strong>Estrategia:</strong> Inicializar un objeto acumulador con todas las métricas y actualizarlas en cada iteración</p>
+                            <p><strong>Métricas a calcular:</strong></p>
+                            <ul>
+                                <li>Total general de todas las ventas</li>
+                                <li>Total por vendedor</li>
+                                <li>Mejor vendedor (mayor total)</li>
+                                <li>Promedio general</li>
+                            </ul>
+                            <p><strong>Estructura del acumulador inicial:</strong></p>
+                            <pre><code>{
+  totalGeneral: 0,
+  totalPorVendedor: {},
+  mejorVendedor: '',
+  promedioGeneral: 0
+}</code></pre>
+                            <p><strong>Solución completa:</strong></p>
+                            <pre><code>ventasData.reduce((stats, vendedor) => {
+  // Calcular total del vendedor actual
+  const totalVendedor = vendedor.ventas.reduce((sum, venta) => sum + venta, 0);
+
+  // Actualizar total general
+  stats.totalGeneral += totalVendedor;
+
+  // Guardar total por vendedor
+  stats.totalPorVendedor[vendedor.vendedor] = totalVendedor;
+
+  // Actualizar mejor vendedor si es necesario
+  if (!stats.mejorVendedor || totalVendedor > stats.totalPorVendedor[stats.mejorVendedor]) {
+    stats.mejorVendedor = vendedor.vendedor;
+  }
+
+  return stats;
+}, {
+  totalGeneral: 0,
+  totalPorVendedor: {},
+  mejorVendedor: '',
+  promedioGeneral: 0
+})</code></pre>
+                            <p><strong>Nota:</strong> El promedio se puede calcular al final dividiendo totalGeneral por número total de transacciones.</p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicios Combinados -->
+            <div class="exercise-group">
+                <h3>🔥 Ejercicios Combinados (MAP + FILTER + REDUCE)</h3>
+
+                <div class="exercise">
+                    <h4>Ejercicio 7: Pipeline de datos básico (🎓 Nivel Estudiante)</h4>
+                    <p>Dado un array de números <code>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code>, encuentra los números pares, multiplícalos por 2 y luego suma todos los resultados. Usa filter, map y reduce en ese orden.</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> <code>60</code> (suma de [4, 8, 12, 16, 20])
+                    </div>
+                    <textarea id="exercise-combined-1" placeholder="// Encadena: filter -> map -> reduce
+// numeros.filter(...).map(...).reduce(...)"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('combined', 1)">Verificar</button>
+                    <div class="exercise-result" id="result-combined-1"></div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 8: Análisis de ventas por región (💼 Nivel 1 año de experiencia)</h4>
+                    <p>Dado un array de ventas <code>[{producto: 'Laptop', region: 'Norte', ventas: 150, precio: 1000}, {producto: 'Mouse', region: 'Sur', ventas: 300, precio: 25}, {producto: 'Teclado', region: 'Norte', ventas: 200, precio: 50}]</code>, calcula el ingreso total de la región 'Norte' (ventas × precio).</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> <code>160000</code> (ingreso total región Norte)
+                    </div>
+                    <textarea id="exercise-combined-2" placeholder="// 1. Filter por región Norte
+// 2. Map para calcular ingreso (ventas * precio)
+// 3. Reduce para sumar todo"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('combined', 2)">Verificar</button>
+                    <div class="exercise-result" id="result-combined-2"></div>
+
+                    <div class="challenge-hint">
+                        <details>
+                            <summary>💡 Ver pistas detalladas</summary>
+                            <p><strong>Concepto clave:</strong> Pipeline de transformación de datos (filter → map → reduce)</p>
+                            <p><strong>Pensamiento paso a paso:</strong></p>
+                            <ol>
+                                <li><strong>Filter:</strong> Quedarse solo con región 'Norte'</li>
+                                <li><strong>Map:</strong> Convertir cada venta en su ingreso total</li>
+                                <li><strong>Reduce:</strong> Sumar todos los ingresos</li>
+                            </ol>
+                            <p><strong>Paso 1 - Filter:</strong> <code>ventasRegion.filter(venta => venta.region === 'Norte')</code></p>
+                            <p><strong>Paso 2 - Map:</strong> <code>.map(venta => venta.ventas * venta.precio)</code></p>
+                            <p><strong>Paso 3 - Reduce:</strong> <code>.reduce((total, ingreso) => total + ingreso, 0)</code></p>
+                            <p><strong>Solución encadenada:</strong></p>
+                            <pre><code>ventasRegion
+  .filter(venta => venta.region === 'Norte')
+  .map(venta => venta.ventas * venta.precio)
+  .reduce((total, ingreso) => total + ingreso, 0)</code></pre>
+                            <p><strong>Verificación manual:</strong> Norte: Laptop (150 × 1000 = 150,000) + Teclado (200 × 50 = 10,000) = 160,000</p>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="exercise">
+                    <h4>Ejercicio 9: Sistema de recomendaciones avanzado (🚀 Nivel 2 años de experiencias)</h4>
+                    <p>Dado un array de usuarios con sus compras <code>[{nombre: 'Ana', edad: 25, compras: [{categoria: 'tech', satisfaccion: 4.5, precio: 1000}, {categoria: 'books', satisfaccion: 4.0, precio: 30}]}, {nombre: 'Luis', edad: 30, compras: [{categoria: 'tech', satisfaccion: 3.5, precio: 800}]}]</code>, encuentra la categoría más popular entre usuarios jóvenes (edad < 30) con alta satisfacción (>= 4.0).</p>
+                    <div class="expected-result">
+                        <strong>Resultado esperado:</strong> String con la categoría más popular
+                    </div>
+                    <textarea id="exercise-combined-3" placeholder="// Pipeline complejo:
+// 1. Filter usuarios jóvenes
+// 2. Map para extraer compras con alta satisfacción
+// 3. Reduce para contar categorías y encontrar la más popular"></textarea>
+                    <button class="exercise-btn" onclick="checkExercise('combined', 3)">Verificar</button>
+                    <div class="exercise-result" id="result-combined-3"></div>
+
+                    <div class="challenge-hint">
+                        <details>
+                            <summary>💡 Ver pistas detalladas</summary>
+                            <p><strong>Concepto clave:</strong> Pipeline complejo con datos anidados y múltiples transformaciones</p>
+                            <p><strong>Desafíos:</strong></p>
+                            <ul>
+                                <li>Trabajar con arrays anidados (compras dentro de usuarios)</li>
+                                <li>Filtrar tanto usuarios como compras</li>
+                                <li>Contar ocurrencias y encontrar el máximo</li>
+                            </ul>
+                            <p><strong>Estrategia paso a paso:</strong></p>
+                            <p><strong>Paso 1 - Filter usuarios jóvenes:</strong></p>
+                            <pre><code>usuariosData.filter(usuario => usuario.edad < 30)</code></pre>
+                            <p><strong>Paso 2 - Map para extraer compras válidas:</strong></p>
+                            <pre><code>.map(usuario => usuario.compras.filter(compra => compra.satisfaccion >= 4.0))</code></pre>
+                            <p><strong>Paso 3 - Aplanar arrays (opcional con flatMap):</strong></p>
+                            <pre><code>.flatMap(compras => compras)</code></pre>
+                            <p><strong>Paso 4 - Reduce para contar categorías:</strong></p>
+                            <pre><code>.reduce((contador, compra) => {
+  contador[compra.categoria] = (contador[compra.categoria] || 0) + 1;
+  return contador;
+}, {})</code></pre>
+                            <p><strong>Paso 5 - Encontrar categoría más popular:</strong></p>
+                            <pre><code>// Después del pipeline anterior:
+Object.keys(conteoCateg).reduce((masPopular, categoria) =>
+  conteoCateg[categoria] > (conteoCateg[masPopular] || 0) ? categoria : masPopular
+)</code></pre>
+                            <p><strong>Solución alternativa más elegante:</strong></p>
+                            <pre><code>usuariosData
+  .filter(usuario => usuario.edad < 30)
+  .flatMap(usuario => usuario.compras)
+  .filter(compra => compra.satisfaccion >= 4.0)
+  .reduce((contador, compra) => {
+    contador[compra.categoria] = (contador[compra.categoria] || 0) + 1;
+    return contador;
+  }, {})
+  // Luego encontrar la categoría con más ocurrencias</code></pre>
+                        </details>
+                    </div>
                 </div>
             </div>
         </section>

@@ -435,6 +435,27 @@ function checkExercise(method, exerciseNumber) {
                             userResult = userResult.map(val => Math.round(val * 100) / 100);
                         }
                         break;
+                    case 4:
+                        testData = [{nombre: 'Ana'}, {nombre: 'Luis'}, {nombre: 'María'}];
+                        expectedResult = [{nombre: 'Ana', id: 1}, {nombre: 'Luis', id: 2}, {nombre: 'María', id: 3}];
+                        userResult = executeUserCode(code, 'usuarios', testData);
+                        break;
+                    case 5:
+                        testData = [{nombre: 'Ana García', salario: 50000, departamento: 'IT'}, {nombre: 'Luis Pérez', salario: 45000, departamento: 'HR'}];
+                        expectedResult = ['Ana G. (IT) - $50,000', 'Luis P. (HR) - $45,000'];
+                        userResult = executeUserCode(code, 'empleados', testData);
+                        break;
+                    case 6:
+                        testData = [
+                            {id: 1, productos: [{nombre: 'Laptop', precio: 1000}, {nombre: 'Mouse', precio: 25}], cliente: 'Ana'},
+                            {id: 2, productos: [{nombre: 'Teclado', precio: 50}], cliente: 'Luis'}
+                        ];
+                        expectedResult = [
+                            {id: 1, cliente: 'Ana', totalProductos: 2, totalPrecio: 1025, resumen: 'Ana: 2 productos - $1,025'},
+                            {id: 2, cliente: 'Luis', totalProductos: 1, totalPrecio: 50, resumen: 'Luis: 1 productos - $50'}
+                        ];
+                        userResult = executeUserCode(code, 'pedidos', testData);
+                        break;
                 }
                 break;
 
@@ -455,6 +476,36 @@ function checkExercise(method, exerciseNumber) {
                         expectedResult = [{nombre: 'Ana', nota: 85}, {nombre: 'María', nota: 91}];
                         userResult = executeUserCode(code, 'estudiantes', testData);
                         break;
+                    case 4:
+                        testData = [{nombre: 'Laptop', stock: 5}, {nombre: 'Mouse', stock: 0}, {nombre: 'Teclado', stock: 3}];
+                        expectedResult = [{nombre: 'Laptop', stock: 5}, {nombre: 'Teclado', stock: 3}];
+                        userResult = executeUserCode(code, 'productos', testData);
+                        break;
+                    case 5:
+                        testData = [
+                            {nombre: 'Ana', activo: true, ultimoLogin: '2024-01-15'},
+                            {nombre: 'Luis', activo: false, ultimoLogin: '2023-12-01'},
+                            {nombre: 'María', activo: true, ultimoLogin: '2024-01-10'}
+                        ];
+                        expectedResult = [
+                            {nombre: 'Ana', activo: true, ultimoLogin: '2024-01-15'},
+                            {nombre: 'María', activo: true, ultimoLogin: '2024-01-10'}
+                        ];
+                        userResult = executeUserCode(code, 'usuarios', testData);
+                        break;
+                    case 6:
+                        testData = [
+                            {id: 1, monto: 1500, tipo: 'deposito', fecha: '2024-01-15', categoria: 'salario'},
+                            {id: 2, monto: 50, tipo: 'retiro', fecha: '2024-01-16', categoria: 'comida'},
+                            {id: 3, monto: 2000, tipo: 'deposito', fecha: '2024-01-10', categoria: 'freelance'}
+                        ];
+                        expectedResult = [
+                            {id: 1, monto: 1500, tipo: 'deposito', fecha: '2024-01-15', categoria: 'salario'},
+                            {id: 2, monto: 50, tipo: 'retiro', fecha: '2024-01-16', categoria: 'comida'},
+                            {id: 3, monto: 2000, tipo: 'deposito', fecha: '2024-01-10', categoria: 'freelance'}
+                        ];
+                        userResult = executeUserCode(code, 'transacciones', testData);
+                        break;
                 }
                 break;
 
@@ -474,6 +525,71 @@ function checkExercise(method, exerciseNumber) {
                         testData = ['a', 'b', 'a', 'c', 'b', 'a'];
                         expectedResult = {a: 3, b: 2, c: 1};
                         userResult = executeUserCode(code, 'letras', testData);
+                        break;
+                    case 4:
+                        testData = [85, 92, 78, 96, 88];
+                        expectedResult = 87.8;
+                        userResult = executeUserCode(code, 'calificaciones', testData);
+                        // Round to 1 decimal for comparison
+                        if (typeof userResult === 'number') {
+                            userResult = Math.round(userResult * 10) / 10;
+                        }
+                        break;
+                    case 5:
+                        testData = [
+                            {nombre: 'iPhone', categoria: 'electronics', precio: 999},
+                            {nombre: 'Libro JS', categoria: 'books', precio: 30},
+                            {nombre: 'Samsung TV', categoria: 'electronics', precio: 800}
+                        ];
+                        expectedResult = {electronics: ['iPhone', 'Samsung TV'], books: ['Libro JS']};
+                        userResult = executeUserCode(code, 'productos', testData);
+                        break;
+                    case 6:
+                        testData = [
+                            {vendedor: 'Ana', ventas: [100, 200, 150]},
+                            {vendedor: 'Luis', ventas: [300, 250, 400]},
+                            {vendedor: 'María', ventas: [180, 220, 190]}
+                        ];
+                        expectedResult = {
+                            totalGeneral: 1990,
+                            promedioGeneral: 221.11,
+                            mejorVendedor: 'Luis',
+                            totalPorVendedor: {Ana: 450, Luis: 950, María: 590}
+                        };
+                        userResult = executeUserCode(code, 'ventasData', testData);
+                        // Round numerical values for comparison
+                        if (userResult && typeof userResult === 'object') {
+                            if (userResult.promedioGeneral) {
+                                userResult.promedioGeneral = Math.round(userResult.promedioGeneral * 100) / 100;
+                            }
+                        }
+                        break;
+                }
+                break;
+
+            case 'combined':
+                switch(exerciseNumber) {
+                    case 1:
+                        testData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                        expectedResult = 60; // [2,4,6,8,10] -> [4,8,12,16,20] -> 60
+                        userResult = executeUserCode(code, 'numeros', testData);
+                        break;
+                    case 2:
+                        testData = [
+                            {producto: 'Laptop', region: 'Norte', ventas: 150, precio: 1000},
+                            {producto: 'Mouse', region: 'Sur', ventas: 300, precio: 25},
+                            {producto: 'Teclado', region: 'Norte', ventas: 200, precio: 50}
+                        ];
+                        expectedResult = 160000; // Norte: (150*1000) + (200*50) = 150000 + 10000 = 160000
+                        userResult = executeUserCode(code, 'ventasRegion', testData);
+                        break;
+                    case 3:
+                        testData = [
+                            {nombre: 'Ana', edad: 25, compras: [{categoria: 'tech', satisfaccion: 4.5, precio: 1000}, {categoria: 'books', satisfaccion: 4.0, precio: 30}]},
+                            {nombre: 'Luis', edad: 30, compras: [{categoria: 'tech', satisfaccion: 3.5, precio: 800}]}
+                        ];
+                        expectedResult = 'tech'; // Only tech appears in high satisfaction purchases from young users
+                        userResult = executeUserCode(code, 'usuariosData', testData);
                         break;
                 }
                 break;
